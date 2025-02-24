@@ -16,7 +16,7 @@ export const AppContext = createContext({
 export const AppContextProvider = ({children}) => {
   const [appTheme, setAppTheme] = useState(DEFAULT_THEME);
   const [isInit, setIsInit] = useState(true);
-  const [isMute, setIsMute] = useState(true);
+  const [isMute, setIsMute] = useState(false);
   const [displayHeight, setDisplayHeight] = useState(height);
 
   useEffect(() => {

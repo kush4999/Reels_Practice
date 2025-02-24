@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from "react";
 import {
   View,
   Animated,
@@ -6,11 +6,11 @@ import {
   Image,
   Text,
   StyleSheet,
-} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {AppContext} from '../Context';
-import {AppImages} from '../Theme/AppImages';
-import {width} from '../Utils/Constant';
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { AppContext } from "../Context";
+import { AppImages } from "../Theme/AppImages";
+import { width } from "../Utils/Constant";
 
 const styles = StyleSheet.create({
   icon: {
@@ -19,37 +19,38 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
-    textAlign: 'center',
+    textAlign: "center",
   },
   sideBar: {
     width: 100,
-    position: 'absolute',
+    position: "absolute",
     zIndex: 1000,
-    right: 10,
-    alignItems: 'center'
+    right: -10,
+    alignItems: "center",
   },
   iconOuter: {
     marginVertical: 8,
   },
   center: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   imageOuter: {
     width,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
 });
 
-const RenderIcon = ({obj, onPress, exStyle = {}}) => {
-  const {appTheme} = useContext(AppContext);
-  const {iconOuter, center, icon, text} = styles;
-  const {type, imageIcon, size = 30, disText} = obj;
+const RenderIcon = ({ obj, onPress, exStyle = {} }) => {
+  const { appTheme } = useContext(AppContext);
+  const { iconOuter, center, icon, text } = styles;
+  const { type, imageIcon, size = 30, disText } = obj;
 
   return (
     <TouchableOpacity
       activeOpacity={0.6}
       onPress={() => onPress(type)}
-      style={iconOuter}>
+      style={iconOuter}
+    >
       <View styles={center}>
         <Image
           source={imageIcon}
@@ -62,10 +63,10 @@ const RenderIcon = ({obj, onPress, exStyle = {}}) => {
             },
             exStyle,
           ]}
-          resizeMode={'contain'}
+          resizeMode={"contain"}
         />
         {(disText && (
-          <Text style={[text, {color: appTheme.tint}]}>{`${disText}`}</Text>
+          <Text style={[text, { color: appTheme.tint }]}>{`${disText}`}</Text>
         )) ||
           null}
       </View>
@@ -73,27 +74,27 @@ const RenderIcon = ({obj, onPress, exStyle = {}}) => {
   );
 };
 
-const FeedSideBar = ({item, animation}) => {
-  const {appTheme} = useContext(AppContext);
+const FeedSideBar = ({ item, animation }) => {
+  const { appTheme } = useContext(AppContext);
   const insets = useSafeAreaInsets();
-  const {sideBar} = styles;
-  const {comments} = item;
+  const { sideBar } = styles;
+  const { comments } = item;
 
   const [likeStatus, setLikeStatus] = useState(item.likeStatus);
   const [likes, setLikes] = useState(item.likes);
 
   const parseLikes = (likes) => {
-    if (typeof likes === 'number') return likes; // Already a number
-    if (likes.includes('K')) return parseFloat(likes) * 1000; // Convert "4.5K" -> 4500
+    if (typeof likes === "number") return likes; // Already a number
+    if (likes.includes("K")) return parseFloat(likes) * 1000; // Convert "4.5K" -> 4500
     return parseInt(likes, 10); // Convert normal string numbers -> int
   };
-  
+
   const formatLikes = (count) => {
-    return count >= 1000 ? (count / 1000).toFixed(1) + 'K' : count.toString();
+    return count >= 1000 ? (count / 1000).toFixed(1) + "K" : count.toString();
   };
-  
+
   const makeAction = async (type) => {
-    if (type === 'Like') {
+    if (type === "Like") {
       setLikeStatus((prev) => {
         const newStatus = !prev;
         setLikes((prevLikes) => {
@@ -111,31 +112,31 @@ const FeedSideBar = ({item, animation}) => {
       style={[
         sideBar,
         {
-          bottom: insets.bottom + 10,
-          flexDirection:'row'
+          bottom: insets.bottom + 10
         },
         animation,
-      ]}>
+      ]}
+    >
       <RenderIcon
         obj={{
           imageIcon: AppImages.heart,
           disText: likes,
           size: 35,
-          type: 'Like',
+          type: "Like",
         }}
-        exStyle={{tintColor: (likeStatus && appTheme.red) || appTheme.tint}}
-        onPress={() =>  makeAction('Like')}
+        exStyle={{ tintColor: (likeStatus && appTheme.red) || appTheme.tint }}
+        onPress={() => makeAction("Like")}
       />
       <RenderIcon
         obj={{
-          imageIcon: AppImages.comment, 
-          disText: comments, 
-          type: 'Comment'
+          imageIcon: AppImages.comment,
+          disText: comments,
+          type: "Comment",
         }}
-        onPress={() =>  {}}
+        onPress={() => {}}
       />
     </Animated.View>
   );
 };
 
-export {FeedSideBar};
+export { FeedSideBar };

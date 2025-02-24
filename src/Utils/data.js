@@ -9,7 +9,7 @@ export const data = [
       "profilePic": AppImages.user1
     },
     "description": "Breathtaking sunset over the mountains! #sunset #nature",
-    "likes": "1.2K",
+    "likes": "200",
     "comments": "234",
     "likeStatus": false
   },

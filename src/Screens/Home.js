@@ -47,10 +47,6 @@ const Home = () => {
     setDisplayHeight((!isIOS && nativeEvent.layout.height) || height);
   };
 
-  const onEndReached = () => {
-    // make api call here
-  };
-
   const keyExtractor = (item, index) => {
     return `${item.id}`;
   };
@@ -94,7 +90,6 @@ const Home = () => {
         getItemLayout={getItemLayout}
         keyExtractor={keyExtractor}
         onEndReachedThreshold={20}
-        onEndReached={onEndReached}
         removeClippedSubviews={true}
       />
     </View>

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 });
 
 const VideoComponent = ({ post, isVisible }) => {
-  const { displayHeight } = useContext(AppContext);
+  const { displayHeight, isMute} = useContext(AppContext);
   const videoRef = useRef(null);
   const { videoOuter, videoView, iconContainer } = styles;
 
@@ -62,6 +62,7 @@ const VideoComponent = ({ post, isVisible }) => {
   return (
     <TouchableWithoutFeedback onPress={handleVideoPress}>
       <View style={[videoOuter, {height: displayHeight}]}>
+        {/* Video component */}
         <Video
           ref={videoRef}
           fullscreenAutorotate={true}
@@ -71,11 +72,12 @@ const VideoComponent = ({ post, isVisible }) => {
           style={[videoView, {height: displayHeight}]}
           playInBackground={false}
           paused={paused}
+          muted={isMute}
           ignoreSilentSwitch="ignore"
           onError={error => console.log('Video Error:', error)}
         />
 
-        {/* Play/Pause Icon (Fades Out) */}
+        {/* Play/Pause Icon */}
         <Animated.View style={[iconContainer, {opacity}]}>
           <Image
             source={paused ? AppImages.playIcon : AppImages.pauseIcon}
