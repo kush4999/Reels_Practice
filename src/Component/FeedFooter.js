@@ -6,6 +6,7 @@ import {
   Image,
   Text,
   StyleSheet,
+  Platform,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AppContext } from "../Context";
@@ -119,6 +120,7 @@ const FeedFooter = ({ item, animation }) => {
             marginBottom: insets.bottom + 20,
             width: "100%",
             flexDirection: "row",
+            top: Platform.OS == 'android' ? 20 : 60,
           },
           animation,
         ]}
